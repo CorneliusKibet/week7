@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Schooling History</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--add required stylesheets-->
+    <!--make sure you add bootstrap 3.3.7 rather than 4.0.0-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css">
+    <!--animation-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="storymap.2.3.css">
+    <link rel="stylesheet" href="leaflet.css" />
+    <script src="leaflet.js"></script>
+    <style>
+        .arrow-label {
+            color: #ffffff;
+            text-shadow: 0 0 2px black;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <!--add required libraries-->
+    <!--leaflet-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--boostrap-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <!--story map plugin-->
+    <script src="storymap.2.3.js"></script>
+    <!--flow-->
+    <script src="https://unpkg.com/leaflet-swoopy@2.0.0/build/Leaflet.SwoopyArrow.js"></script>
+    <script src="Leaflet.SwoopyArrow-customized.js"></script>
+</head>
+<body>
+<div id="storymap" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-8 storymap-map"></div>
+        <div class="col-sm-6 col-md-4 storymap-story">
+            <section data-scene="scene1">
+                <h2 style="color:#800080">My Residence &amp; Schooling History</h2>
+                <h3>Nursery School: Bomet Country, Longisa</h3>
+                <h4 style="color:#008080;"><i>Heads to Narok County...</i></h4>
+            </section>
+            <section data-scene="scene2">
+                <h2 style="color:#800080">My Residence &amp; Schooling History</h2>
+                <h3>class 1: Narok Country, Ol Choro</h3>
+                <h4 style="color:#008080;"><i>Heads back to Bomet County...</i></h4>
+            </section>
+            <section data-scene="scene3">
+                <h2 style="color:#800080">My Residence &amp; Schooling History</h2>
+                <h3>Class 2-3: Bomet Country, Longisa</h3>
+                <h4 style="color:#008080;"><i>Heads to Kericho County...</i></h4>
+            </section>
+            <section data-scene="scene4">
+                <h2 style="color:#800080">My Residence &amp; Schooling History</h2>
+                <h3>Class 4-5: Kericho Country, Ainamoi</h3>
+                <h4 style="color:#008080;"><i>Heads back to Bomet County...</i></h4>
+            </section>
+            <section data-scene="scene5">
+                <h2 style="color:#800080">My Residence &amp; Schooling History</h2>
+                <h3>Class 2-3: Bomet Country, Longisa</h3>
+                <h3>Form 1-3: Bomet Country, Longisa</h3>
+                <h3>Heads to Nairovi: In-stay</h3>
+                <h4 style="color:#008080;"><i>Heads to Kiambu...</i></h4>
+            </section>
+            <section data-scene="scene6">
+                <h2 style="color:#800080">My Residence &amp; Schooling History</h2>
+                <h3>Form 3-4: Kiambu county, Juja</h3>
+                <h3>College: Kiambu county, Juja</h3>
+                <h4 style="color:#008080;"><i>till today...</i></h4>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var layers = {
+        layer1: {
+            layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+            legend: '<i style="background: black; opacity: 0.5"></i><p><b>legend 1</b></p>'
+        },
+
+        layer2: {  //https://github.com/wbkd/leaflet-swoopy  /*bomet-narok*/
+            layer: L.swoopyArrow([-0.85900, 35.3933], [-1.0889, 35.874], {
+                weight: 3,
+                opacity: 0.5,
+                fontSize: 20,
+                color: "#0000FF",
+                iconAnchor: [0, 0],
+                iconSize: [20,20],
+                textClassName: "arrow-label"
+            })
+        },
+        layer3: {  //https://github.com/wbkd/leaflet-swoopy  /*Narok-bomet*/
+            layer: L.swoopyArrow([-1.0889, 35.874], [-0.85900, 35.3933], {
+                weight: 2,
+                opacity: 0.7,
+                fontSize: 20,
+                color: "#000",
+                iconAnchor: [0, 0]
+            })
+        },
+         layer4: {  //https://github.com/wbkd/leaflet-swoopy  /*bomet-kco*/
+            layer: L.swoopyArrow([-0.85900, 35.3933], [-0.3, 35.2831], {
+                weight: 3,
+                opacity: 0.5,
+                fontSize: 20,
+                color: "#800080",
+                iconAnchor: [0, 0],
+                iconSize: [20,20],
+                textClassName: "arrow-label"
+            })
+        },
+         layer5: {  //https://github.com/wbkd/leaflet-swoopy  /*kco-bomet*/
+            layer: L.swoopyArrow([-0.3, 35.2831], [-0.85900, 35.3933], {
+                weight: 3,
+                opacity: 0.5,
+                fontSize: 20,
+                color: "#F00000",
+                iconAnchor: [0, 0],
+                iconSize: [20,20],
+                textClassName: "arrow-label"
+            })
+        },
+         layer6: {  //https://github.com/wbkd/leaflet-swoopy  /*bomet-nrbi*/
+            layer: L.swoopyArrow([-0.85900, 35.3933], [-1.328, 36.7047], {
+                weight: 3,
+                opacity: 0.5,
+                fontSize: 20,
+                color: "#7FFF00",
+                iconAnchor: [0, 0],
+                iconSize: [20,20],
+                textClassName: "arrow-label"
+            })
+        },
+         layer7: {  //https://github.com/wbkd/leaflet-swoopy  /*nrbi-kiambu*/
+            layer: L.swoopyArrow([-1.328, 36.7047], [-1.0953, 37.150], {
+                weight: 3,
+                opacity: 0.5,
+                fontSize: 20,
+                color: "#008080",
+                iconAnchor: [0, 0],
+                iconSize: [20,20],
+                textClassName: "arrow-label"
+            })
+        }
+    };
+   var scenes = {
+        scene1: {lat: -0.85900, lng: 35.3933, zoom: 9, layers: ['layer2'], name: "scene 1"},
+        scene2: {lat: -1.0889, lng: 35.874, zoom: 9, layers: ['layer3'], name: "scene 2"},
+        scene3: {lat: -0.85900, lng: 35.3933, zoom: 9, layers: ['layer4'], name: "scene 3"},
+        scene4: {lat: -0.3, lng: 35.2831, zoom: 9, layers: ['layer5'], name: "scene 4"},
+        scene5: {lat: -0.85900, lng: 35.3933, zoom: 9, layers: ['layer6'], name: "scene 5"},
+        scene6: {lat: -1.328, lng: 36.7047, zoom: 9, layers: ['layer7'], name: "scene 6"}
+    };
+    $('#storymap').storymap({
+        scenes: scenes,
+        layers: layers,
+        baselayer: layers.layer1,
+        legend: true,
+        loader: true,
+        flyto: true,
+        credits: "build with<i class='glyphicon glyphicon-heart animated zoomIn infinite' style='color: red'></i> by Cornelius Kibet",
+        scalebar: true,
+        scrolldown: true,
+        progressline: true,
+        navwidget: true,
+        createMap: function () {
+            var map = L.map($(".storymap-map")[0], {zoomControl: false}).setView([-0.85900, 35.3933], 7);
+            basemap = this.baselayer.layer.addTo(map);
+            return map;
+        }
+    });
+</script>
+    <div id="map"></div>
+    <script>
+        let map2 = L.map("map", {center: [-0.85900, 35.3933], zoom: 9});
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map2);
+        L.marker([-0.85900, 35.3933]).addTo(map2);
+    </script>
+</body>
+</html>
